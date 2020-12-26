@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {arrow,top_image,breathing,confirmed,cough,deat,distance,fever,
     flag,handshake,headache,surface,travel,kerchief,koff,mask,recover,
     sore_throat,stay_home,wash,logo} from '../img/image'
-
+import CountUp from 'react-countup';
 
 const Home = () => {
   return (
@@ -396,7 +396,7 @@ const Home = () => {
                   alt="confirmed"
                 />
                 <div className="mx-3">
-                  <h2 className="con-figures">79,124,958</h2>
+               <h2><CountUp start={0} end={79124958} duration={5} separator="," className="con-figures"/></h2> 
                   <p>Confirmed cases</p>
                 </div>
               </div>
@@ -409,7 +409,7 @@ const Home = () => {
                   alt="deaths"
                 />
                 <div className="mx-3">
-                  <h2 className="death-figures">1,738,968</h2>
+                <h2><CountUp start={0} end={1738968} duration={5} separator="," className="death-figures"/></h2> 
                   <p>Total Deaths</p>
                 </div>
               </div>
@@ -422,7 +422,7 @@ const Home = () => {
                   alt="flag"
                 />
                 <div className="mx-3">
-                  <h2 className="countries-figures">219</h2>
+                    <h2><CountUp start={0} end={219} duration={2} separator="," className="countries-figures"/></h2> 
                   <p>Affected Countries</p>
                 </div>
               </div>
@@ -435,7 +435,7 @@ const Home = () => {
                   alt="recoverered"
                 />
                 <div className="mx-3">
-                  <h2 className="recovered-figures">55,712,732</h2>
+                <h2><CountUp start={0} end={55712732} duration={5} separator="," className="recovered-figures"/></h2> 
                   <p>Total recovered</p>
                 </div>
               </div>
@@ -541,15 +541,6 @@ const Home = () => {
               />
                &nbsp; COVID - 19
             </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
             <div
               className="collapse navbar-collapse justify-content-end footer-nav"
               id="navbarNav"
