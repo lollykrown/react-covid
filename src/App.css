@@ -1,0 +1,49 @@
+:root {
+  --primary: rgb(255, 94, 57);
+  --text: #090E3F;
+  --white: #ffffff;
+  --background: #F1F1F1;
+  --pink: rgb(198, 15, 80);
+  --yellow: rgb(255,170,57);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text);
+  background-color: transparent;
+}
+.header-bg, #stats,
+#top, #symptoms {
+  background-color: var(--background);
+}
+#transmission, #stats,
+#prevention, #top, #symptoms {
+  margin-bottom:100px !important;
+}
+section{
+  width:100%;
+}
+.App-logo {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.navbar-brand {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
