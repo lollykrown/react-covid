@@ -6,7 +6,21 @@
   --pink: rgb(198, 15, 80);
   --yellow: rgb(255,170,57);
 }
-
+.red{
+  background-color: var(--primary) !important;
+  color: var(--white);
+}
+.pink{
+  background-color: var(--pink) !important;
+  color: var(--white);
+}
+.green{
+  background-color: #00BA00 !important;
+  color: var(--white);
+}
+.bord{
+  border: 1px solid #bdbdbd !important;
+}
 body {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;

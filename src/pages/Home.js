@@ -40,7 +40,6 @@ const HomeComponent = () => {
       return [c.country_name, Number(c.cases?.replace(/,/g, ""))]
     })
     const d = [['Country', 'Cases'], ...dat]
-    console.log('daatat',d)
 
   return (
     <HomeContainer>
@@ -99,6 +98,151 @@ const HomeComponent = () => {
                   alt="covid-19 doctors"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+        <section id="stats">
+          <div className="container py-5">
+            <div className="chart-titles text-center">
+              <h2>
+                Coronavirus disease <br /> (COVID-19) outbreak situation
+              </h2>
+              <div className="line2"></div>
+              <p className="updated">
+                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
+                {/* 27 december 2020, 03:06 GMT +6 */}
+              </p>
+              <a className="btn arrow"
+                    href="/table"
+                  >View Tables{" "}
+                    <img className="d-none d-md-inline"
+                      src={arrow} width="36" height="36" alt="arrow-right"/>
+                  </a>
+              <br />
+            </div>
+            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
+            {hasErrored && (
+              <div>
+                Loading error... Is the json-server running? (try "npm run
+                json-server" at terminal prompt)
+                <br />
+                <b>ERROR: {error.message}</b>
+              </div>
+            )}
+
+            {success && (
+              <div className="figures d-md-flex flex-row justify-content-evenly">
+                <div className="m-3 d-flex flex-row confirmed px-3 pt-2 pb-0 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={confirmed}
+                    alt="confirmed"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.confirmed}
+                        duration={5}
+                        separator=","
+                        className="con-figures"
+                      />
+                    </h2>
+                    <p>Confirmed cases</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row deaths px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={deat}
+                    alt="deaths"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.deaths}
+                        duration={5}
+                        separator=","
+                        className="death-figures"
+                      />
+                    </h2>
+                    <p>Total Deaths</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row countries px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={flag}
+                    alt="flag"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={countriesCases?.length || 220}
+                        duration={5}
+                        separator=","
+                        className="countries-figures"
+                      />
+                    </h2>
+                    <p>Affected Countries</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row recovered px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={recover}
+                    alt="recoverered"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.recovered}
+                        duration={5}
+                        separator=","
+                        className="recovered-figures"
+                      />
+                    </h2>
+                    <p>Total recovered</p>
+                  </div>
+                </div>
+              </div>
+            )}
+           
+            <div
+              className="mt-5 d-none d-md-flex flex-row justify-content-center"
+              id="chart"
+              style={{ width: "100%", height: "700px" }}
+              // style={{ display: 'flex', maxWidth: '1000px' }}
+            >
+               <Chart
+              width={'900px'}
+              height={'620px'}
+              chartType="GeoChart"
+              data={d}
+              options = {{
+                colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
+                // animation: {
+                //   duration: 5000,
+                //   easing: 'out',
+                //   startup: true,
+                // }
+              }}
+              // Note: you will need to get a mapsApiKey for your project.
+              // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+              mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+              rootProps={{ 'data-testid': '1' }}
+            />
             </div>
           </div>
         </section>
@@ -405,151 +549,6 @@ const HomeComponent = () => {
                   <img src={arrow} width="36" height="36" alt="arrow-right" />
                 </a>
               </div>
-            </div>
-          </div>
-        </section>
-        <section id="stats">
-          <div className="container py-5">
-            <div className="chart-titles text-center">
-              <h2>
-                Coronavirus disease <br /> (COVID-19) outbreak situation
-              </h2>
-              <div className="line2"></div>
-              <p className="updated">
-                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
-                {/* 27 december 2020, 03:06 GMT +6 */}
-              </p>
-              <a className="btn arrow"
-                    href="https://emedicine.medscape.com/article/2500114-overview"
-                  >View Tables{" "}
-                    <img className="d-none d-md-inline"
-                      src={arrow} width="36" height="36" alt="arrow-right"/>
-                  </a>
-              <br />
-            </div>
-            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
-            {hasErrored && (
-              <div>
-                Loading error... Is the json-server running? (try "npm run
-                json-server" at terminal prompt)
-                <br />
-                <b>ERROR: {error.message}</b>
-              </div>
-            )}
-
-            {success && (
-              <div className="figures d-md-flex flex-row justify-content-evenly">
-                <div className="m-3 d-flex flex-row confirmed px-3 pt-2 pb-0 justify-content-evenly">
-                  <img
-                    className="img-fluid"
-                    width="56"
-                    height="72"
-                    src={confirmed}
-                    alt="confirmed"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.confirmed}
-                        duration={5}
-                        separator=","
-                        className="con-figures"
-                      />
-                    </h2>
-                    <p>Confirmed cases</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row deaths px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid "
-                    width="56"
-                    height="72"
-                    src={deat}
-                    alt="deaths"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.deaths}
-                        duration={5}
-                        separator=","
-                        className="death-figures"
-                      />
-                    </h2>
-                    <p>Total Deaths</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row countries px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid"
-                    width="56"
-                    height="72"
-                    src={flag}
-                    alt="flag"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={countriesCases?.length || 220}
-                        duration={5}
-                        separator=","
-                        className="countries-figures"
-                      />
-                    </h2>
-                    <p>Affected Countries</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row recovered px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid "
-                    width="56"
-                    height="72"
-                    src={recover}
-                    alt="recoverered"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.recovered}
-                        duration={5}
-                        separator=","
-                        className="recovered-figures"
-                      />
-                    </h2>
-                    <p>Total recovered</p>
-                  </div>
-                </div>
-              </div>
-            )}
-           
-            <div
-              className="mt-5 mx-auto d-none d-md-block"
-              id="chart"
-              style={{ width: "1000px", height: "700px" }}
-              // style={{ display: 'flex', maxWidth: '1000px' }}
-            >
-               <Chart
-              width={'900px'}
-              height={'700px'}
-              chartType="GeoChart"
-              data={d}
-              options = {{
-                colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
-                // animation: {
-                //   duration: 5000,
-                //   easing: 'out',
-                //   startup: true,
-                // }
-              }}
-              // Note: you will need to get a mapsApiKey for your project.
-              // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-              mapsApiKey={process.env.REACT_APP_API_KEY}
-              rootProps={{ 'data-testid': '1' }}
-            />
             </div>
           </div>
         </section>
