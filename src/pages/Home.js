@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import {arrow,top_image,breathing,confirmed,cough,deat,distance,fever,
-    flag,handshake,headache,surface,travel,kerchief,koff,mask,recover,
-    sore_throat,stay_home,wash,logo} from '../img/image'
-import CountUp from 'react-countup';
+import {arrow,top_image,breathing,confirmed,cough,deat,distance,fever,flag,handshake,headache,
+  surface,travel,kerchief,koff,mask,recover,sore_throat,stay_home,wash,logo,} from "../img/image";
+import CountUp from "react-countup";
+import { DataContext, DataProvider } from "../contexts/DataContext";
+import { REQUEST_STATUS } from "../reducers/request";
+import moment from 'moment'
 
-const Home = () => {
+const HomeComponent = () => {
+  // const byCountry = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php";
+  // const affectedCountriesList = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/affected.php";
+
+  const { stats, status, error } = useContext(DataContext);
+  console.log("wefwgg", stats);
+
+  let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
+    total_deaths,total_recovered,} = stats;
+
+  const success = status === REQUEST_STATUS.SUCCESS;
+  const isLoading = status === REQUEST_STATUS.LOADING;
+  const hasErrored = status === REQUEST_STATUS.ERROR;
+  
+  const st = {
+    activeCases: Number(active_cases?.replace(/,/g, "")),
+    newCases: Number(new_cases?.replace(/,/g, "")),
+    newDeaths: Number(new_deaths?.replace(/,/g, "")),
+    confirmed: Number(total_cases?.replace(/,/g, "")),
+    deaths: Number(total_deaths?.replace(/,/g, "")),
+    recovered: Number(total_recovered?.replace(/,/g, "")),
+    updated: statistic_taken_at,
+  };
+
   return (
     <HomeContainer>
       <main>
@@ -13,13 +38,17 @@ const Home = () => {
           <div className="container">
             <div className="row pb-5">
               <div className="col-md-6">
-                <br /><br /><br />
+                <br />
+                <br />
+                <br />
                 <p className="stay text-uppercase">stay home</p>
                 <div className="line"></div>
                 <br />
                 <h1 className="text-uppercase main-text">
-                  stay safe<br /> from covid-19
-                </h1><br />
+                  stay safe
+                  <br /> from covid-19
+                </h1>
+                <br />
                 <p>
                   Coronavirus disease (COVID-19) was discovered in 2019. It is
                   caused by the a virus named SARS-CoV2 which is a family of
@@ -27,7 +56,8 @@ const Home = () => {
                   and MERS. It is highly contagious and common signs of
                   infection are majorly respiratory symptoms.
                 </p>
-                <br /><br />
+                <br />
+                <br />
 
                 <div className="d-flex ">
                   <a
@@ -36,6 +66,7 @@ const Home = () => {
                   >
                     Learn more{" "}
                     <img
+                      className="d-none d-md-inline"
                       src={arrow}
                       width="36"
                       height="36"
@@ -43,9 +74,7 @@ const Home = () => {
                     />
                   </a>
                   <a
-                    noopener
-                    noreferrer
-                    className="btn px-5 py-3 mr-4 play"
+                    className="btn px-3 py-3  play"
                     href="https://covid19.ncdc.gov.ng/media/nitp.mp4"
                   >
                     <i className="fa fa-play-circle"></i> Play video now
@@ -53,7 +82,11 @@ const Home = () => {
                 </div>
               </div>
               <div className="d-none d-md-block col-md-6 mt-5">
-                <img className="img-fluid" src={top_image} alt="covid-19 doctors" />
+                <img
+                  className="img-fluid"
+                  src={top_image}
+                  alt="covid-19 doctors"
+                />
               </div>
             </div>
           </div>
@@ -158,7 +191,6 @@ const Home = () => {
               <div className="col-md-4">
                 <br /> <br /> <br />
                 <h2 className="">Here are some of the symptoms of Covid-19</h2>
-
                 <br />
                 <p>
                   Coronavirus disease (COVID-19) is a new strain that was
@@ -166,20 +198,15 @@ const Home = () => {
                   humans. Common signs of infection are majorly respiratory
                   symptoms
                 </p>
-                <br /><br />
-
+                <br />
+                <br />
                 <div className="d-flex ">
                   <a
                     className="btn arrow"
                     href="https://emedicine.medscape.com/article/2500114-clinical"
                   >
                     Learn more{" "}
-                    <img
-                      src={arrow}
-                      width="36"
-                      height="36"
-                      alt="arrow-right"
-                    />
+                    <img src={arrow} width="36" height="36" alt="arrow-right" />
                   </a>
                 </div>
               </div>
@@ -364,12 +391,7 @@ const Home = () => {
                   href="https://covid19.ncdc.gov.ng/media/files/HomeCareInterimGuide.pdf"
                 >
                   Learn more{" "}
-                  <img
-                    src={arrow}
-                    width="36"
-                    height="36"
-                    alt="arrow-right"
-                  />
+                  <img src={arrow} width="36" height="36" alt="arrow-right" />
                 </a>
               </div>
             </div>
@@ -382,64 +404,110 @@ const Home = () => {
                 Coronavirus disease <br /> (COVID-19) outbreak situation
               </h2>
               <div className="line2"></div>
-              <p className="updated">Updated: 27 december 2020, 03:06 GMT +6</p>
+              <p className="updated">
+                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
+                {/* 27 december 2020, 03:06 GMT +6 */}
+              </p>
               <br />
             </div>
+            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
+            {hasErrored && (
+              <div>
+                Loading error... Is the json-server running? (try "npm run
+                json-server" at terminal prompt)
+                <br />
+                <b>ERROR: {error.message}</b>
+              </div>
+            )}
 
-            <div className="figures d-md-flex flex-row justify-content-evenly">
-              <div className="m-3 d-flex flex-row confirmed px-3 pt-2 justify-content-evenly">
-                <img
-                  className="img-fluid"
-                  width="56"
-                  height="72"
-                  src={confirmed}
-                  alt="confirmed"
-                />
-                <div className="mx-3">
-               <h2><CountUp start={0} end={79124958} duration={5} separator="," className="con-figures"/></h2> 
-                  <p>Confirmed cases</p>
+            {success && (
+              <div className="figures d-md-flex flex-row justify-content-evenly">
+                <div className="m-3 d-flex flex-row confirmed px-3 pt-2 pb-0 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={confirmed}
+                    alt="confirmed"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.confirmed}
+                        duration={5}
+                        separator=","
+                        className="con-figures"
+                      />
+                    </h2>
+                    <p>Confirmed cases</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row deaths px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={deat}
+                    alt="deaths"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.deaths}
+                        duration={5}
+                        separator=","
+                        className="death-figures"
+                      />
+                    </h2>
+                    <p>Total Deaths</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row countries px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={flag}
+                    alt="flag"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={219}
+                        duration={5}
+                        separator=","
+                        className="countries-figures"
+                      />
+                    </h2>
+                    <p>Affected Countries</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row recovered px-3 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={recover}
+                    alt="recoverered"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.recovered}
+                        duration={5}
+                        separator=","
+                        className="recovered-figures"
+                      />
+                    </h2>
+                    <p>Total recovered</p>
+                  </div>
                 </div>
               </div>
-              <div className="m-3 d-flex flex-row deaths px-3 pt-2 justify-content-evenly">
-                <img
-                  className="img-fluid "
-                  width="56"
-                  height="72"
-                  src={deat}
-                  alt="deaths"
-                />
-                <div className="mx-3">
-                <h2><CountUp start={0} end={1738968} duration={5} separator="," className="death-figures"/></h2> 
-                  <p>Total Deaths</p>
-                </div>
-              </div>
-              <div className="m-3 d-flex flex-row countries px-3 pt-2 justify-content-evenly">
-                <img
-                  className="img-fluid"
-                  width="56"
-                  height="72"
-                  src={flag}
-                  alt="flag"
-                />
-                <div className="mx-3">
-                    <h2><CountUp start={0} end={219} duration={2} separator="," className="countries-figures"/></h2> 
-                  <p>Affected Countries</p>
-                </div>
-              </div>
-              <div className="m-3 d-flex flex-row recovered px-3 pt-2 justify-content-evenly">
-                <img
-                  className="img-fluid "
-                  width="56"
-                  height="72"
-                  src={recover}
-                  alt="recoverered"
-                />
-                <div className="mx-3">
-                <h2><CountUp start={0} end={55712732} duration={5} separator="," className="recovered-figures"/></h2> 
-                  <p>Total recovered</p>
-                </div>
-              </div>
-            </div>
+            )}
 
             <div
               className="mt-5 mx-auto d-none d-md-block"
@@ -459,14 +527,12 @@ const Home = () => {
               Let us know
             </h2>
             <br />
-            <a className="btn arrow" href="https://covid19.ncdc.gov.ng/contact/">
+            <a
+              className="btn arrow"
+              href="https://covid19.ncdc.gov.ng/contact/"
+            >
               Contact NCDC{" "}
-              <img
-                src={arrow}
-                width="36"
-                height="36"
-                alt="arrow-right"
-              />
+              <img src={arrow} width="36" height="36" alt="arrow-right" />
             </a>
           </div>
 
@@ -539,7 +605,7 @@ const Home = () => {
                 width="36px"
                 height="36px"
               />
-               &nbsp; COVID - 19
+              &nbsp; COVID - 19
             </a>
             <div
               className="collapse navbar-collapse justify-content-end footer-nav"
@@ -580,8 +646,8 @@ const HomeContainer = styled.header`
     border-bottom-right-radius: 140px;
   }
   #top a:hover {
-      color: var(--text);
-      transition: all 0.6s ease-in;
+    color: var(--text);
+    transition: all 0.6s ease-in;
   }
   .stay,
   .play {
@@ -818,5 +884,13 @@ const HomeContainer = styled.header`
     margin: 0;
   }
 `;
+
+const Home = (props) => {
+  return (
+    <DataProvider baseUrl="https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php">
+      <HomeComponent {...props}></HomeComponent>
+    </DataProvider>
+  );
+};
 
 export default Home;
