@@ -6,15 +6,17 @@ import CountUp from "react-countup";
 import { DataContext, DataProvider } from "../contexts/DataContext";
 import { REQUEST_STATUS } from "../reducers/request";
 import moment from 'moment'
-import { useRequestCountries, useRequestDetails } from "../hooks/useRequest";
+import { useRequestDetails } from "../hooks/useRequest";
+import { Chart } from "react-google-charts";
 
 const HomeComponent = () => {
+  // const { countries } = useRequestCountries("https://coronavirus-monitor.p.rapidapi.com/coronavirus","affected.php");
 
-  const { countries } = useRequestCountries("https://coronavirus-monitor.p.rapidapi.com/coronavirus","affected.php");
-  const { countriesCases } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
-  const nigeria = countriesCases.filter(c => c.country_name === 'Nigeria')
   const { stats, status, error } = useContext(DataContext);
-  console.log("wefwgg", nigeria);
+
+  const { countriesCases } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
+  // const nigeria = countriesCases.filter(c => c.country_name === 'Nigeria')
+  // console.log("wefwgg", nigeria);
 
   let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
     total_deaths,total_recovered,} = stats;
@@ -32,6 +34,13 @@ const HomeComponent = () => {
     recovered: Number(total_recovered?.replace(/,/g, "")),
     updated: statistic_taken_at,
   };
+
+  // const geoChart = () => {
+    const dat = countriesCases.map(c => {
+      return [c.country_name, Number(c.cases?.replace(/,/g, ""))]
+    })
+    const d = [['Country', 'Cases'], ...dat]
+    console.log('daatat',d)
 
   return (
     <HomeContainer>
@@ -410,6 +419,12 @@ const HomeComponent = () => {
                 Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
                 {/* 27 december 2020, 03:06 GMT +6 */}
               </p>
+              <a className="btn arrow"
+                    href="https://emedicine.medscape.com/article/2500114-overview"
+                  >View Tables{" "}
+                    <img className="d-none d-md-inline"
+                      src={arrow} width="36" height="36" alt="arrow-right"/>
+                  </a>
               <br />
             </div>
             {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
@@ -478,7 +493,7 @@ const HomeComponent = () => {
                     <h2>
                       <CountUp
                         start={0}
-                        end={countries?.length}
+                        end={countriesCases?.length || 220}
                         duration={5}
                         separator=","
                         className="countries-figures"
@@ -510,12 +525,32 @@ const HomeComponent = () => {
                 </div>
               </div>
             )}
-
+           
             <div
               className="mt-5 mx-auto d-none d-md-block"
               id="chart"
-              style={{ width: "100%", height: "500px" }}
-            ></div>
+              style={{ width: "1000px", height: "700px" }}
+              // style={{ display: 'flex', maxWidth: '1000px' }}
+            >
+               <Chart
+              width={'900px'}
+              height={'700px'}
+              chartType="GeoChart"
+              data={d}
+              options = {{
+                colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
+                // animation: {
+                //   duration: 5000,
+                //   easing: 'out',
+                //   startup: true,
+                // }
+              }}
+              // Note: you will need to get a mapsApiKey for your project.
+              // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+              mapsApiKey={process.env.REACT_APP_API_KEY}
+              rootProps={{ 'data-testid': '1' }}
+            />
+            </div>
           </div>
         </section>
       </main>
