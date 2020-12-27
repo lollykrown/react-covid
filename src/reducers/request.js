@@ -1,6 +1,10 @@
 import {
     GET_ALL_SUCCESS,
     GET_ALL_FAILURE,
+    GET_COUNTRIES_SUCCESS,
+    GET_COUNTRIES_FAILURE,
+    GET_ALL_COUNTRIES_SUCCESS,
+    GET_ALL_COUNTRIES_FAILURE
   } from '../actions/request';
   
   export const REQUEST_STATUS = {
@@ -18,6 +22,34 @@ import {
         };
       }
       case GET_ALL_FAILURE: {
+        return {
+          ...state,
+          status: REQUEST_STATUS.ERROR,
+          error: action.error,
+        };
+      }
+      case GET_ALL_COUNTRIES_SUCCESS: {
+        return {
+          ...state,
+          countriesCases: action.countriesCases,
+          status: REQUEST_STATUS.SUCCESS,
+        };
+      }
+      case GET_ALL_COUNTRIES_FAILURE: {
+        return {
+          ...state,
+          status: REQUEST_STATUS.ERROR,
+          error: action.error,
+        };
+      }
+      case GET_COUNTRIES_SUCCESS: {
+        return {
+          ...state,
+          countries: action.countries,
+          status: REQUEST_STATUS.SUCCESS,
+        };
+      }
+      case GET_COUNTRIES_FAILURE: {
         return {
           ...state,
           status: REQUEST_STATUS.ERROR,

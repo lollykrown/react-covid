@@ -6,13 +6,15 @@ import CountUp from "react-countup";
 import { DataContext, DataProvider } from "../contexts/DataContext";
 import { REQUEST_STATUS } from "../reducers/request";
 import moment from 'moment'
+import { useRequestCountries, useRequestDetails } from "../hooks/useRequest";
 
 const HomeComponent = () => {
-  // const byCountry = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php";
-  // const affectedCountriesList = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/affected.php";
 
+  const { countries } = useRequestCountries("https://coronavirus-monitor.p.rapidapi.com/coronavirus","affected.php");
+  const { countriesCases } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
+  const nigeria = countriesCases.filter(c => c.country_name === 'Nigeria')
   const { stats, status, error } = useContext(DataContext);
-  console.log("wefwgg", stats);
+  console.log("wefwgg", nigeria);
 
   let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
     total_deaths,total_recovered,} = stats;
@@ -476,7 +478,7 @@ const HomeComponent = () => {
                     <h2>
                       <CountUp
                         start={0}
-                        end={219}
+                        end={countries?.length}
                         duration={5}
                         separator=","
                         className="countries-figures"
@@ -887,7 +889,7 @@ const HomeContainer = styled.header`
 
 const Home = (props) => {
   return (
-    <DataProvider baseUrl="https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php">
+    <DataProvider baseUrl="https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php" routeName="worldstat.php">
       <HomeComponent {...props}></HomeComponent>
     </DataProvider>
   );

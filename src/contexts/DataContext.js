@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import useRequest from '../hooks/useRequest';
+import {useRequest} from '../hooks/useRequest';
 
 const DataContext = createContext();
 
