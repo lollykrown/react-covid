@@ -24,7 +24,7 @@ const useRequest = (baseUrl, routeName) => {
       try {
         const response = await axios.get(`${baseUrl}/${routeName}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
+                "x-rapidapi-key": process.env.REACT_APP_API,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -76,7 +76,7 @@ const useRequestCountries = (baseUrl, count) => {
       try {
         const response = await axios.get(`${baseUrl}/${count}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
+                "x-rapidapi-key": process.env.REACT_APP_API,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -128,7 +128,7 @@ const useRequestDetails = (baseUrl, countryCases) => {
       try {
         const response = await axios.get(`${baseUrl}/${countryCases}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
+                "x-rapidapi-key": process.env.REACT_APP_API,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -137,7 +137,7 @@ const useRequestDetails = (baseUrl, countryCases) => {
         console.log('countries cases',response.data);
         dispatch({  
           type: GET_ALL_COUNTRIES_SUCCESS,
-          countriesCases: response.data.countries_stat,
+          countriesCases: response.data,
         });
       } catch (e) {
         console.log('Loading data error', e);
@@ -166,4 +166,4 @@ const useRequestDetails = (baseUrl, countryCases) => {
   return propsLocal;
 };
 
-export { useRequest, useRequestCountries, useRequestDetails };
+export { useRequest, useRequestDetails };

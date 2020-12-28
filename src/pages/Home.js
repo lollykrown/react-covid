@@ -15,15 +15,15 @@ const HomeComponent = () => {
   const { stats, status, error } = useContext(DataContext);
 
   const { countriesCases } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
-  // const nigeria = countriesCases.filter(c => c.country_name === 'Nigeria')
-  // console.log("wefwgg", nigeria);
+  const {countries_stat} = countriesCases;
+
 
   let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
     total_deaths,total_recovered,} = stats;
 
   const success = status === REQUEST_STATUS.SUCCESS;
   const isLoading = status === REQUEST_STATUS.LOADING;
-  const hasErrored = status === REQUEST_STATUS.ERROR;
+  const hasError = status === REQUEST_STATUS.ERROR;
   
   const st = {
     activeCases: Number(active_cases?.replace(/,/g, "")),
@@ -121,10 +121,10 @@ const HomeComponent = () => {
               <br />
             </div>
             {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
-            {hasErrored && (
+            {hasError && (
               <div>
-                Loading error... Is the json-server running? (try "npm run
-                json-server" at terminal prompt)
+                Loading error... Are you connected to the internet?
+                <br/> Check your internet conenction and try again.
                 <br />
                 <b>ERROR: {error.message}</b>
               </div>
@@ -186,7 +186,7 @@ const HomeComponent = () => {
                     <h2>
                       <CountUp
                         start={0}
-                        end={countriesCases?.length || 220}
+                        end={countries_stat?.length || 220}
                         duration={5}
                         separator=","
                         className="countries-figures"
@@ -240,7 +240,7 @@ const HomeComponent = () => {
               }}
               // Note: you will need to get a mapsApiKey for your project.
               // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-              mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+              mapsApiKey={process.env.REACT_APP_MAP_API}
               rootProps={{ 'data-testid': '1' }}
             />
             </div>
