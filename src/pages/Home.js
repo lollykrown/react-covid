@@ -8,6 +8,7 @@ import { REQUEST_STATUS } from "../reducers/request";
 import moment from 'moment'
 import { useRequestDetails } from "../hooks/useRequest";
 import { Chart } from "react-google-charts";
+import { Link } from "react-router-dom";
 
 const HomeComponent = () => {
   // const { countries } = useRequestCountries("https://coronavirus-monitor.p.rapidapi.com/coronavirus","affected.php");
@@ -115,12 +116,12 @@ const HomeComponent = () => {
                 Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
                 {/* 27 december 2020, 03:06 GMT +6 */}
               </p>
-              <a className="btn arrow"
-                    href="/table"
+              <Link className="btn arrow"
+                    to="/table"
                   >View Tables{" "}
                     <img className="d-none d-md-inline"
                       src={arrow} width="36" height="36" alt="arrow-right"/>
-                  </a>
+                  </Link>
               <br />
             </div>
             {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
