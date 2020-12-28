@@ -7,14 +7,13 @@ import { REQUEST_STATUS } from "../reducers/request";
 const Table = () => {
   const [search, setSearch] = useState('')
 
-  const { countriesCases, status, error } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
+  const { countriesCases, statuss, err } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
   const {countries_stat:stats, statistic_taken_at:updated} = countriesCases;
 
-  const success = status === REQUEST_STATUS.SUCCESS;
-  const isLoading = status === REQUEST_STATUS.LOADING;
-  const hasError = status === REQUEST_STATUS.ERROR;
+  const success = statuss === REQUEST_STATUS.SUCCESS;
+  const isLoading = statuss === REQUEST_STATUS.LOADING;
+  const hasError = statuss === REQUEST_STATUS.ERROR;
 
-  console.log('jijk', stats)
   const setVal = (e) => {
     e.preventDefault()
     const value = e.target.value;
@@ -22,7 +21,7 @@ const Table = () => {
   }
 
   return (
-    <TableContainer className="overflow-scroll">
+    <TableContainer className="container">
       <h5 className="my-3 ms-2">COVID-19 stats by Country</h5>
       <h6 className="float-end me-3">Updated: {updated}</h6>
       <form className="form-inline my-lg-0">
@@ -35,7 +34,7 @@ const Table = () => {
               aria-label="Search"
             />
           </form>
-      <table className="table table-striped">
+      <table className="overflow-scroll table table-striped">
         <thead>
           <tr>
             <th scope="col" className="bord">S/N</th>
@@ -53,12 +52,11 @@ const Table = () => {
         <tbody>
         {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
         {hasError && (
-          <div>
-            Loading error... Are you connected to the internet?
-            <br/> Check your internet conenction and try again.
-            <br />
-            <b>ERROR: {error.message}</b>
-          </div>
+           <div className="mt-5 d-flex flex-column justify-content-center text-center">
+             <p>Loading error... Are you connected to the internet?<br/>
+              Check your internet conenction and try again.</p>
+              <h6 className="text-danger fw-bold">ERROR: {err.message}</h6>
+           </div>
         )}
         {success && stats.filter(c => {
           return c.country_name.toLowerCase().includes(search.toLowerCase())

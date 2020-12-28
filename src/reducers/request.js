@@ -32,14 +32,14 @@ import {
         return {
           ...state,
           countriesCases: action.countriesCases,
-          status: REQUEST_STATUS.SUCCESS,
+          statuss: REQUEST_STATUS.SUCCESS,
         };
       }
       case GET_ALL_COUNTRIES_FAILURE: {
         return {
           ...state,
-          status: REQUEST_STATUS.ERROR,
-          error: action.error,
+          statuss: REQUEST_STATUS.ERROR,
+          err: action.error,
         };
       }
       case GET_COUNTRIES_SUCCESS: {

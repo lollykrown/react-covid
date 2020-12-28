@@ -14,16 +14,15 @@ const HomeComponent = () => {
 
   const { stats, status, error } = useContext(DataContext);
 
-  const { countriesCases } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
-  const {countries_stat} = countriesCases;
-
+  const { countriesCases, err, statuss } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
+  const { countries_stat: count } = countriesCases;
 
   let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
     total_deaths,total_recovered,} = stats;
 
-  const success = status === REQUEST_STATUS.SUCCESS;
-  const isLoading = status === REQUEST_STATUS.LOADING;
-  const hasError = status === REQUEST_STATUS.ERROR;
+  const success = status === REQUEST_STATUS.SUCCESS && statuss === REQUEST_STATUS.SUCCESS;
+  const isLoading = status === REQUEST_STATUS.LOADING && statuss === REQUEST_STATUS.LOADING;
+  const hasError = status === REQUEST_STATUS.ERROR && statuss === REQUEST_STATUS.ERROR;
   
   const st = {
     activeCases: Number(active_cases?.replace(/,/g, "")),
@@ -35,11 +34,15 @@ const HomeComponent = () => {
     updated: statistic_taken_at,
   };
 
-  // const geoChart = () => {
-    const dat = countriesCases.map(c => {
+  // geoChart 
+  let dat
+  if(success){
+    dat = count?.map(c => {
       return [c.country_name, Number(c.cases?.replace(/,/g, ""))]
     })
-    const d = [['Country', 'Cases'], ...dat]
+    dat.unshift(['Country', 'Cases']);
+  // const d = [['Country', 'Cases'], ...dat];
+  }
 
   return (
     <HomeContainer>
@@ -122,11 +125,11 @@ const HomeComponent = () => {
             </div>
             {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
             {hasError && (
-              <div>
-                Loading error... Are you connected to the internet?
-                <br/> Check your internet conenction and try again.
-                <br />
-                <b>ERROR: {error.message}</b>
+              <div className="mt-5 d-flex flex-column justify-content-center text-center">
+                <p>Loading error... Are you connected to the internet?<br/>
+                 Check your internet conenction and try again.</p>
+                 <h6 className="text-danger fw-bold">ERROR: {error.message || err.message}</h6>
+
               </div>
             )}
 
@@ -186,7 +189,7 @@ const HomeComponent = () => {
                     <h2>
                       <CountUp
                         start={0}
-                        end={countries_stat?.length || 220}
+                        end={count?.length || 220}
                         duration={5}
                         separator=","
                         className="countries-figures"
@@ -219,31 +222,31 @@ const HomeComponent = () => {
               </div>
             )}
            
-            <div
+            {success && (<div
               className="mt-5 d-none d-md-flex flex-row justify-content-center"
               id="chart"
               style={{ width: "100%", height: "700px" }}
               // style={{ display: 'flex', maxWidth: '1000px' }}
             >
-               <Chart
-              width={'900px'}
-              height={'620px'}
-              chartType="GeoChart"
-              data={d}
-              options = {{
-                colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
-                // animation: {
-                //   duration: 5000,
-                //   easing: 'out',
-                //   startup: true,
-                // }
-              }}
-              // Note: you will need to get a mapsApiKey for your project.
-              // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-              mapsApiKey={process.env.REACT_APP_MAP_API}
-              rootProps={{ 'data-testid': '1' }}
-            />
-            </div>
+              <Chart
+                width={'900px'}
+                height={'620px'}
+                chartType="GeoChart"
+                data={dat}
+                options = {{
+                  colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
+                  // animation: {
+                  //   duration: 5000,
+                  //   easing: 'out',
+                  //   startup: true,
+                  // }
+                }}
+                // Note: you will need to get a mapsApiKey for your project.
+                // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+                rootProps={{ 'data-testid': '1' }}
+              />
+            </div>)}
           </div>
         </section>
         <section id="transmission">

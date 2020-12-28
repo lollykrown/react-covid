@@ -24,7 +24,7 @@ const useRequest = (baseUrl, routeName) => {
       try {
         const response = await axios.get(`${baseUrl}/${routeName}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API,
+                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -76,7 +76,7 @@ const useRequestCountries = (baseUrl, count) => {
       try {
         const response = await axios.get(`${baseUrl}/${count}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API,
+                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -115,10 +115,10 @@ const useRequestCountries = (baseUrl, count) => {
 };
 
 const useRequestDetails = (baseUrl, countryCases) => {
-  const [{ countriesCases, status, error }, dispatch] = useReducer(requestReducer, {
-    status: REQUEST_STATUS.LOADING,
+  const [{ countriesCases, statuss, err }, dispatch] = useReducer(requestReducer, {
+    statuss: REQUEST_STATUS.LOADING,
     countriesCases:[],
-    error: null,
+    err: null,
   });
 
   const signal = useRef(axios.CancelToken.source());
@@ -128,7 +128,7 @@ const useRequestDetails = (baseUrl, countryCases) => {
       try {
         const response = await axios.get(`${baseUrl}/${countryCases}`, {
             headers: {
-                "x-rapidapi-key": process.env.REACT_APP_API,
+                "x-rapidapi-key": process.env.REACT_APP_API_KEY,
                 "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
                 "useQueryString": true
               },
@@ -146,7 +146,7 @@ const useRequestDetails = (baseUrl, countryCases) => {
         } else {
           dispatch({
             type: GET_ALL_COUNTRIES_FAILURE,
-            error: e,
+            err: e,
           });
       }
       }
@@ -160,8 +160,8 @@ const useRequestDetails = (baseUrl, countryCases) => {
 
   const propsLocal = {
     countriesCases,
-    status,
-    error
+    statuss,
+    err
   };
   return propsLocal;
 };
