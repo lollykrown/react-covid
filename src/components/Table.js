@@ -3,6 +3,7 @@ import { useRequestDetails } from "../hooks/useRequest";
 import styled from "styled-components";
 import { logo } from "../img/image";
 import { REQUEST_STATUS } from "../reducers/request";
+import moment from 'moment'
 
 const Table = () => {
   const [search, setSearch] = useState('')
@@ -23,7 +24,7 @@ const Table = () => {
   return (
     <TableContainer className="container">
       <h5 className="my-3 ms-2">COVID-19 stats by Country</h5>
-      <h6 className="float-end me-3">Updated: {updated}</h6>
+      <h6 className="float-end me-3">Updated: {moment(updated).format('LL LTS ZZ',true)} </h6>
       <form className="form-inline my-lg-0">
             <input
               onChange={e=> setVal(e)}

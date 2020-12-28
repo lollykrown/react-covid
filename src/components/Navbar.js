@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from "styled-components";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {logo} from "../img/image";
 
 
-const Navbar = (props) => {
 
+const Navbar = () => {
+    const {hash} = useLocation();
+    
   return (
     <NavbarContainer className="header-bg">
         <div className="container header">
@@ -21,19 +23,19 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item mt-2 mx-3">
-                            <Link className="nav-link active" to="/">Home</Link>
+                            <Link className={`nav-link ${hash === "" ? 'active' : ''}`} to="/">Home</Link>
                         </li>
                         <li className="nav-item mt-2 mx-3">
-                            <a className="nav-link" href="/#stats">Stats</a>
+                            <a className={`nav-link ${hash === "#stats" ? 'active' : ''}`} href="/#stats">Stats</a>
                         </li>
                         <li className="nav-item mt-2 mx-3">
-                            <a className="nav-link" href="/#transmission">Transmission</a>
+                            <a className={`nav-link ${hash === "#transmission" ? 'active' : ''}`} href="/#transmission">Transmission</a>
                         </li>
                         <li className="nav-item mt-2 mx-3">
-                            <a className="nav-link " href="/#symptoms">Symptoms</a>
+                            <a className={`nav-link ${hash === "#symptoms" ? 'active' : ''}`} href="/#symptoms">Symptoms</a>
                         </li>
                         <li className="nav-item mt-2 ms-3 me-5">
-                            <a className="nav-link" href="/#prevention">Prevention</a>
+                            <a className={`nav-link ${hash === "#prevention" ? 'active' : ''}`} href="/#prevention">Prevention</a>
                         </li>
                         <li className="nav-item mt-2 mx-3">
                             <a className="nav-link px-4 py-2" id="helpline" href="#contact">Helpline</a>
@@ -75,4 +77,4 @@ const NavbarContainer = styled.header`
 }
 `;
 
-export default withRouter(Navbar)
+export default Navbar
