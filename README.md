@@ -22,7 +22,7 @@ The app is hosted on netlify, see link below
 
 ## Like what you see?
 
-Please leave a star on our GitHub repo!
+You can leave a star on the GitHub repo!
 
 [![N|Solid](screenshots/stats.png)](https://kovid-app.netlify.app/)
 [![N|Solid](screenshots/table.png)](https://kovid-app.netlify.app/)
