@@ -15,7 +15,9 @@ The app is hosted on netlify, see link below
 - Map - [React Google Charts](https://react-google-charts.com/)
 - Time formatting - [Moment.js](https://momentjs.com/)
 - Figures count animation - [React CountUp](https://www.npmjs.com/package/react-countup)
-- Free SVG images - [Illustrations](https://undraw.co/)
+- Illustrations - [Undraw](https://undraw.co/)
+- Icons - [Flat Icons](https://www.flaticon.com/)
+
 
 
 ## Like what you see?
@@ -28,6 +30,8 @@ Please leave a star on our GitHub repo!
 
 ## Find me on 
 - [Twitter](https://twitter.com/lollykrown)
+- [Website](https://lollykrown.xyz)
+
 
 
 
