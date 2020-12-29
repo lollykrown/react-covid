@@ -554,7 +554,7 @@ const HomeComponent = () => {
                 }}
                 // Note: you will need to get a mapsApiKey for your project.
                 // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-                mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+                mapsApiKey={process.env.REACT_APP_API_KEY}
                 rootProps={{ 'data-testid': '1' }}
               />
             </div>)}

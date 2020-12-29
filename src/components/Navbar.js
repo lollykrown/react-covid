@@ -20,22 +20,22 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item mt-2 mx-3">
+                        <li className="nav-item mt-2 me-3">
                             <Link className={`nav-link ${hash === "" ? 'active' : ''}`} to="/">Home</Link>
                         </li>
-                        <li className="nav-item mt-2 mx-3">
+                        <li className="nav-item mt-2 ms-2 me-3">
                             <a className={`nav-link ${hash === "#transmission" ? 'active' : ''}`} href="/#transmission">Transmission</a>
                         </li>
-                        <li className="nav-item mt-2 mx-3">
+                        <li className="nav-item mt-2 ms-2 me-3">
                             <a className={`nav-link ${hash === "#symptoms" ? 'active' : ''}`} href="/#symptoms">Symptoms</a>
                         </li>
-                        <li className="nav-item mt-2 ms-3 me-5">
+                        <li className="nav-item mt-2 ms-2 me-3">
                             <a className={`nav-link ${hash === "#prevention" ? 'active' : ''}`} href="/#prevention">Prevention</a>
                         </li>
-                        <li className="nav-item mt-2 mx-3">
+                        <li className="nav-item mt-2 ms-2 me-5">
                             <a className={`nav-link ${hash === "#stats" ? 'active' : ''}`} href="/#stats">Stats</a>
                         </li>
-                        <li className="nav-item mt-2 mx-3">
+                        <li className="nav-item mt-2 mx-2">
                             <a className="nav-link px-4 py-2" id="helpline" href="#contact">Helpline</a>
                         </li>
                     </ul>
