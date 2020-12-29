@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import {logo} from "../img/image";
 
-
-
 const Navbar = () => {
     const {hash} = useLocation();
     
@@ -26,9 +24,6 @@ const Navbar = () => {
                             <Link className={`nav-link ${hash === "" ? 'active' : ''}`} to="/">Home</Link>
                         </li>
                         <li className="nav-item mt-2 mx-3">
-                            <a className={`nav-link ${hash === "#stats" ? 'active' : ''}`} href="/#stats">Stats</a>
-                        </li>
-                        <li className="nav-item mt-2 mx-3">
                             <a className={`nav-link ${hash === "#transmission" ? 'active' : ''}`} href="/#transmission">Transmission</a>
                         </li>
                         <li className="nav-item mt-2 mx-3">
@@ -36,6 +31,9 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item mt-2 ms-3 me-5">
                             <a className={`nav-link ${hash === "#prevention" ? 'active' : ''}`} href="/#prevention">Prevention</a>
+                        </li>
+                        <li className="nav-item mt-2 mx-3">
+                            <a className={`nav-link ${hash === "#stats" ? 'active' : ''}`} href="/#stats">Stats</a>
                         </li>
                         <li className="nav-item mt-2 mx-3">
                             <a className="nav-link px-4 py-2" id="helpline" href="#contact">Helpline</a>

@@ -105,151 +105,6 @@ const HomeComponent = () => {
             </div>
           </div>
         </section>
-        <section id="stats">
-          <div className="container py-5">
-            <div className="chart-titles text-center">
-              <h2>
-                Coronavirus disease <br /> (COVID-19) outbreak situation
-              </h2>
-              <div className="line2"></div>
-              <p className="updated">
-                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
-                {/* 27 december 2020, 03:06 GMT +6 */}
-              </p>
-              <Link className="btn arrow"
-                    to="/table"
-                  >View Tables{" "}
-                    <img className="d-none d-md-inline"
-                      src={arrow} width="36" height="36" alt="arrow-right"/>
-                  </Link>
-              <br />
-            </div>
-            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
-            {hasError && (
-              <div className="mt-5 d-flex flex-column justify-content-center text-center">
-                <p>Loading error... Are you connected to the internet?<br/>
-                 Check your internet conenction and try again.</p>
-                 <h6 className="text-danger fw-bold">ERROR: {error.message || err.message}</h6>
-
-              </div>
-            )}
-
-            {success && (
-              <div className="figures d-md-flex flex-row justify-content-evenly">
-                <div className="m-3 d-flex flex-row confirmed px-3 pt-2 pb-0 justify-content-evenly">
-                  <img
-                    className="img-fluid"
-                    width="56"
-                    height="72"
-                    src={confirmed}
-                    alt="confirmed"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.confirmed}
-                        duration={5}
-                        separator=","
-                        className="con-figures"
-                      />
-                    </h2>
-                    <p>Confirmed cases</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row deaths px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid "
-                    width="56"
-                    height="72"
-                    src={deat}
-                    alt="deaths"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.deaths}
-                        duration={5}
-                        separator=","
-                        className="death-figures"
-                      />
-                    </h2>
-                    <p>Total Deaths</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row countries px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid"
-                    width="56"
-                    height="72"
-                    src={flag}
-                    alt="flag"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={count?.length || 220}
-                        duration={5}
-                        separator=","
-                        className="countries-figures"
-                      />
-                    </h2>
-                    <p>Affected Countries</p>
-                  </div>
-                </div>
-                <div className="m-3 d-flex flex-row recovered px-3 pt-2 justify-content-evenly">
-                  <img
-                    className="img-fluid "
-                    width="56"
-                    height="72"
-                    src={recover}
-                    alt="recoverered"
-                  />
-                  <div className="mx-3">
-                    <h2>
-                      <CountUp
-                        start={0}
-                        end={st.recovered}
-                        duration={5}
-                        separator=","
-                        className="recovered-figures"
-                      />
-                    </h2>
-                    <p>Total recovered</p>
-                  </div>
-                </div>
-              </div>
-            )}
-           
-            {success && (<div
-              className="mt-5 d-none d-md-flex flex-row justify-content-center"
-              id="chart"
-              style={{ width: "100%", height: "700px" }}
-              // style={{ display: 'flex', maxWidth: '1000px' }}
-            >
-              <Chart
-                width={'900px'}
-                height={'620px'}
-                chartType="GeoChart"
-                data={dat}
-                options = {{
-                  colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
-                  // animation: {
-                  //   duration: 5000,
-                  //   easing: 'out',
-                  //   startup: true,
-                  // }
-                }}
-                // Note: you will need to get a mapsApiKey for your project.
-                // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-                mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
-                rootProps={{ 'data-testid': '1' }}
-              />
-            </div>)}
-          </div>
-        </section>
         <section id="transmission">
           <div className="container">
             <div className="chart-titles text-center ">
@@ -258,50 +113,43 @@ const HomeComponent = () => {
                 <div className="line3 "></div>
               </div>
 
-              <p className="det">
-                Coronaviruses are zoonotic, meaning they are transmitted between
-                animals and people. Detailed investigations found that
-                SARS-COV2...
+              <p className="">
+              COVID-19 is thought to spread mainly through close contact from person to person, 
+              including between people who are physically near each other (within about 6 feet). 
+              People who are infected but do not show symptoms can also spread the virus to others. 
+              Cases of reinfection with COVID-19  have been reported but are rare. We are still 
+              learning about how the virus spreads and the severity of illness it causes.
               </p>
               <br />
             </div>
             <div className="row justify-content-center">
               <div
-                className="card col-sm-6 col-md-4 m-3 shadow"
-                style={{ width: "14rem" }}
-              >
-                <img
-                  src={cough}
-                  className="card-img-top mt-2 rounded"
-                  alt="cough"
-                />
-                <div className="card-body">
+                className="card col-sm-6 col-md-4 m-3 shadow" style={{ width: "14rem" }}>
+                <img src={cough} className="card-img-top mt-2 rounded" alt="cough"/>
+                <div className="card-body ">
                   <p className="card-title">
                     Cough/sneeze from an infected person
                   </p>
-                  <h6 className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                  <h6 className="card-text d">
+                  When people with COVID-19 cough, sneeze, sing, talk, or breathe they produce 
+                  respiratory droplets. 
+                  Infections occur mainly through exposure to respiratory droplets when a person is in close 
+                  contact with someone who has COVID-19.
                   </h6>
                 </div>
               </div>
 
               <div
-                className="card col-sm-6 col-md-4 m-3 shadow"
-                style={{ width: "14rem" }}
-              >
-                <img
-                  src={handshake}
-                  className="mt-2 card-img-top rounded"
-                  alt="handshake"
-                />
+                className="card col-sm-6 col-md-4 m-3 shadow" style={{ width: "14rem" }}>
+                <img src={handshake} className="mt-2 card-img-top rounded" alt="handshake"/>
                 <div className="card-body">
                   <p className="card-title">
                     Human Contacts with infected person
                   </p>
-                  <h6 className="card-text">
-                    COVID-19 is a new disease and we are still learning how it
-                    spreads, the severity of...
+                  <h6 className="card-text d">
+                  People who are physically near (within 6 feet) a person with COVID-19 or have 
+                  direct contact with that person are at greatest risk of infection. Droplets from
+                  infected person(s) are more likely to settle on the mucous membrane of others with close contact.
                   </h6>
                 </div>
               </div>
@@ -317,9 +165,11 @@ const HomeComponent = () => {
                 />
                 <div className="card-body">
                   <p className="card-title">Contaminated Objects/Surface</p>
-                  <h6 className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                  <h6 className="card-text d">
+                  Respiratory droplets can also land on surfaces &amp; objects. It's possible 
+                  that a person could get COVID-19 by touching a surface or object that has the virus 
+                  on it and then touching their own mouth, nose, or eyes.
+                  Spread from touching surfaces is not common.
                   </h6>
                 </div>
               </div>
@@ -335,9 +185,10 @@ const HomeComponent = () => {
                 />
                 <div className="card-body">
                   <p className="card-title">Travel to endemic region</p>
-                  <h6 className="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                  <h6 className="card-text d">
+                    Travelling to destinations with large cases of Covid-19 also poses significant risk
+                    as the chances of coming in close contact with infected people increases with community transmission. 
+                    You may need to assess your risk when making travel plans.
                   </h6>
                 </div>
               </div>
@@ -354,15 +205,19 @@ const HomeComponent = () => {
                 <p>
                   Coronavirus disease (COVID-19) is a new strain that was
                   discovered in 2019 and has been previously identified in
-                  humans. Common signs of infection are majorly respiratory
-                  symptoms
+                  humans.
+                  People with COVID-19 have had a wide range of symptoms reported – ranging
+                   from mild symptoms to severe illness. Symptoms may appear 2-14 days after 
+                   exposure to the virus. Common signs of infection are majorly respiratory
+                  symptoms.
+                  
                 </p>
                 <br />
                 <br />
                 <div className="d-flex ">
                   <a
                     className="btn arrow"
-                    href="https://emedicine.medscape.com/article/2500114-clinical"
+                    href="https://www.webmd.com/lung/coronavirus"
                   >
                     Learn more{" "}
                     <img src={arrow} width="36" height="36" alt="arrow-right" />
@@ -509,15 +364,6 @@ const HomeComponent = () => {
                 <br />
                 <div>
                   <details>
-                    <summary>
-                      Stay away from elderly people and children
-                    </summary>
-                    <p>
-                      These are vulnerable age groups and are more susceptible
-                      to infection especially covid-19
-                    </p>
-                  </details>
-                  <details>
                     <summary>Avoid large crowds</summary>
                     <p>
                       Large crowds like religious gathering e.g church, mosques
@@ -527,11 +373,12 @@ const HomeComponent = () => {
                   </details>
                   <details>
                     <summary>
-                      Stay away from elderly people and children
+                      Stay away from elderly people
                     </summary>
                     <p>
                       These are vulnerable age groups and are more susceptible
-                      to infection especially covid-19
+                      to infection especially covid-19.
+                      Risk for severe illness with COVID-19 increases with age, with older adults at highest risk.
                     </p>
                   </details>
                   <details>
@@ -541,6 +388,18 @@ const HomeComponent = () => {
                     <p>
                       These group of people are more likely to come down with
                       severe illness because of their pre-existing conditions
+                    </p>
+                  </details>
+                  <details>
+                  <summary>                      
+                      Take everyday preventive actions
+                    </summary>
+                    <p>
+                       Wash your hands frequently.
+                       Avoid touching your eyes, nose, and mouth with unwashed hands.
+                       Cover your cough or sneeze with a tissue, then throw the tissue in the trash.
+                       Stay at least 6 feet (about 2 arm lengths) from other people.
+                       Clean and disinfect frequently touched objects and surfaces.
                     </p>
                   </details>
                 </div>
@@ -556,6 +415,152 @@ const HomeComponent = () => {
             </div>
           </div>
         </section>
+        <section id="stats">
+          <div className="container py-5">
+            <div className="chart-titles text-center">
+              <h2>
+                Coronavirus disease <br /> (COVID-19) outbreak situation
+              </h2>
+              <div className="line2"></div>
+              <p className="updated">
+                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
+                {/* 27 december 2020, 03:06 GMT +6 */}
+              </p>
+              <Link className="btn arrow mb-4"
+                    to="/table"
+                  >View Tables{" "}
+                    <img className="d-none d-md-inline"
+                      src={arrow} width="36" height="36" alt="arrow-right"/>
+                  </Link>
+              <br />
+            </div>
+            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
+            {hasError && (
+              <div className="mt-5 d-flex flex-column justify-content-center text-center">
+                <p>Loading error... Are you connected to the internet?<br/>
+                 Check your internet conenction and try again.</p>
+                 <h6 className="text-danger fw-bold">ERROR: {error.message || err.message}</h6>
+
+              </div>
+            )}
+
+            {success && (
+              <div className="figures d-md-flex flex-row justify-content-evenly">
+                <div className="m-3 d-flex flex-row confirmed px-2 pt-2 pb-0 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={confirmed}
+                    alt="confirmed"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.confirmed}
+                        duration={5}
+                        separator=","
+                        className="con-figures"
+                      />
+                    </h2>
+                    <p>Confirmed cases</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row deaths px-2 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={deat}
+                    alt="deaths"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.deaths}
+                        duration={5}
+                        separator=","
+                        className="death-figures"
+                      />
+                    </h2>
+                    <p>Total Deaths</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row countries px-2 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid"
+                    width="56"
+                    height="72"
+                    src={flag}
+                    alt="flag"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={count?.length || 220}
+                        duration={5}
+                        separator=","
+                        className="countries-figures"
+                      />
+                    </h2>
+                    <p>Affected Countries</p>
+                  </div>
+                </div>
+                <div className="m-3 d-flex flex-row recovered px-2 pt-2 justify-content-evenly">
+                  <img
+                    className="img-fluid "
+                    width="56"
+                    height="72"
+                    src={recover}
+                    alt="recoverered"
+                  />
+                  <div className="mx-3">
+                    <h2>
+                      <CountUp
+                        start={0}
+                        end={st.recovered}
+                        duration={5}
+                        separator=","
+                        className="recovered-figures"
+                      />
+                    </h2>
+                    <p>Total recovered</p>
+                  </div>
+                </div>
+              </div>
+            )}
+           
+            {success && (<div
+              className="mt-5 d-none d-md-flex flex-row justify-content-center"
+              id="chart"
+              style={{ width: "100%", height: "700px" }}
+              // style={{ display: 'flex', maxWidth: '1000px' }}
+            >
+              <Chart
+                width={'900px'}
+                height={'620px'}
+                chartType="GeoChart"
+                data={dat}
+                options = {{
+                  colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
+                  // animation: {
+                  //   duration: 5000,
+                  //   easing: 'out',
+                  //   startup: true,
+                  // }
+                }}
+                // Note: you will need to get a mapsApiKey for your project.
+                // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+                rootProps={{ 'data-testid': '1' }}
+              />
+            </div>)}
+          </div>
+        </section>
+        
       </main>
 
       <footer>
@@ -684,6 +689,7 @@ const HomeComponent = () => {
 const HomeContainer = styled.header`
   #top {
     border-bottom-right-radius: 140px;
+    // margin-top: 100px;
   }
   #top a:hover {
     color: var(--text);
@@ -707,7 +713,11 @@ const HomeContainer = styled.header`
     color: var(--primary);
   }
 
+
   /* transmission */
+  .d{
+    font-size:12px;
+  }
   .det {
     margin: 30px auto;
   }
@@ -733,6 +743,7 @@ const HomeContainer = styled.header`
   #symptoms {
     border-bottom-left-radius: 140px;
   }
+
   h6,
   details > summary,
   details > p {
