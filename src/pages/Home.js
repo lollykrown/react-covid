@@ -1,11 +1,32 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import {arrow,top_image,breathing,confirmed,cough,deat,distance,fever,flag,handshake,headache,
-  surface,travel,kerchief,koff,mask,recover,sore_throat,stay_home,wash,logo,} from "../img/image";
+import {
+  arrow,
+  top_image,
+  breathing,
+  confirmed,
+  cough,
+  deat,
+  distance,
+  fever,
+  flag,
+  handshake,
+  headache,
+  surface,
+  travel,
+  kerchief,
+  koff,
+  mask,
+  recover,
+  sore_throat,
+  stay_home,
+  wash,
+  logo,
+} from "../img/image";
 import CountUp from "react-countup";
 import { DataContext, DataProvider } from "../contexts/DataContext";
 import { REQUEST_STATUS } from "../reducers/request";
-import moment from 'moment'
+import moment from "moment";
 import { useRequestDetails } from "../hooks/useRequest";
 import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
@@ -15,16 +36,29 @@ const HomeComponent = () => {
 
   const { stats, status, error } = useContext(DataContext);
 
-  const { countriesCases, err, statuss } = useRequestDetails("https://coronavirus-monitor.p.rapidapi.com/coronavirus","cases_by_country.php");
+  const { countriesCases, err, statuss } = useRequestDetails(
+    "https://coronavirus-monitor.p.rapidapi.com/coronavirus",
+    "cases_by_country.php"
+  );
   const { countries_stat: count } = countriesCases;
 
-  let {active_cases,new_cases,new_deaths,statistic_taken_at,total_cases,
-    total_deaths,total_recovered,} = stats;
+  let {
+    active_cases,
+    new_cases,
+    new_deaths,
+    statistic_taken_at,
+    total_cases,
+    total_deaths,
+    total_recovered,
+  } = stats;
 
-  const success = status === REQUEST_STATUS.SUCCESS && statuss === REQUEST_STATUS.SUCCESS;
-  const isLoading = status === REQUEST_STATUS.LOADING && statuss === REQUEST_STATUS.LOADING;
-  const hasError = status === REQUEST_STATUS.ERROR && statuss === REQUEST_STATUS.ERROR;
-  
+  const success =
+    status === REQUEST_STATUS.SUCCESS && statuss === REQUEST_STATUS.SUCCESS;
+  const isLoading =
+    status === REQUEST_STATUS.LOADING && statuss === REQUEST_STATUS.LOADING;
+  const hasError =
+    status === REQUEST_STATUS.ERROR && statuss === REQUEST_STATUS.ERROR;
+
   const st = {
     activeCases: Number(active_cases?.replace(/,/g, "")),
     newCases: Number(new_cases?.replace(/,/g, "")),
@@ -35,14 +69,14 @@ const HomeComponent = () => {
     updated: statistic_taken_at,
   };
 
-  // geoChart 
-  let dat
-  if(success){
-    dat = count?.map(c => {
-      return [c.country_name, Number(c.cases?.replace(/,/g, ""))]
-    })
-    dat.unshift(['Country', 'Cases']);
-  // const d = [['Country', 'Cases'], ...dat];
+  // geoChart
+  let dat;
+  if (success) {
+    dat = count?.map((c) => {
+      return [c.country_name, Number(c.cases?.replace(/,/g, ""))];
+    });
+    dat.unshift(["Country", "Cases"]);
+    // const d = [['Country', 'Cases'], ...dat];
   }
 
   return (
@@ -114,42 +148,58 @@ const HomeComponent = () => {
               </div>
 
               <p className="">
-              COVID-19 is thought to spread mainly through close contact from person to person, 
-              including between people who are physically near each other (within about 6 feet). 
-              People who are infected but do not show symptoms can also spread the virus to others. 
-              Cases of reinfection with COVID-19  have been reported but are rare. We are still 
-              learning about how the virus spreads and the severity of illness it causes.
+                COVID-19 is thought to spread mainly through close contact from
+                person to person, including between people who are physically
+                near each other (within about 6 feet). People who are infected
+                but do not show symptoms can also spread the virus to others.
+                Cases of reinfection with COVID-19 have been reported but are
+                rare. We are still learning about how the virus spreads and the
+                severity of illness it causes.
               </p>
               <br />
             </div>
             <div className="row justify-content-center">
               <div
-                className="card col-sm-6 col-md-4 m-3 shadow" style={{ width: "14rem" }}>
-                <img src={cough} className="card-img-top mt-2 rounded" alt="cough"/>
+                className="card col-sm-6 col-md-4 m-3 shadow"
+                style={{ width: "14rem" }}
+              >
+                <img
+                  src={cough}
+                  className="card-img-top mt-2 rounded"
+                  alt="cough"
+                />
                 <div className="card-body ">
                   <p className="card-title">
                     Cough/sneeze from an infected person
                   </p>
                   <h6 className="card-text d">
-                  When people with COVID-19 cough, sneeze, sing, talk, or breathe they produce 
-                  respiratory droplets. 
-                  Infections occur mainly through exposure to respiratory droplets when a person is in close 
-                  contact with someone who has COVID-19.
+                    When people with COVID-19 cough, sneeze, sing, talk, or
+                    breathe they produce respiratory droplets. Infections occur
+                    mainly through exposure to respiratory droplets when a
+                    person is in close contact with someone who has COVID-19.
                   </h6>
                 </div>
               </div>
 
               <div
-                className="card col-sm-6 col-md-4 m-3 shadow" style={{ width: "14rem" }}>
-                <img src={handshake} className="mt-2 card-img-top rounded" alt="handshake"/>
+                className="card col-sm-6 col-md-4 m-3 shadow"
+                style={{ width: "14rem" }}
+              >
+                <img
+                  src={handshake}
+                  className="mt-2 card-img-top rounded"
+                  alt="handshake"
+                />
                 <div className="card-body">
                   <p className="card-title">
                     Human Contacts with infected person
                   </p>
                   <h6 className="card-text d">
-                  People who are physically near (within 6 feet) a person with COVID-19 or have 
-                  direct contact with that person are at greatest risk of infection. Droplets from
-                  infected person(s) are more likely to settle on the mucous membrane of others with close contact.
+                    People who are physically near (within 6 feet) a person with
+                    COVID-19 or have direct contact with that person are at
+                    greatest risk of infection. Droplets from infected person(s)
+                    are more likely to settle on the mucous membrane of others
+                    with close contact.
                   </h6>
                 </div>
               </div>
@@ -166,10 +216,11 @@ const HomeComponent = () => {
                 <div className="card-body">
                   <p className="card-title">Contaminated Objects/Surface</p>
                   <h6 className="card-text d">
-                  Respiratory droplets can also land on surfaces &amp; objects. It's possible 
-                  that a person could get COVID-19 by touching a surface or object that has the virus 
-                  on it and then touching their own mouth, nose, or eyes.
-                  Spread from touching surfaces is not common.
+                    Respiratory droplets can also land on surfaces &amp;
+                    objects. It's possible that a person could get COVID-19 by
+                    touching a surface or object that has the virus on it and
+                    then touching their own mouth, nose, or eyes. Spread from
+                    touching surfaces is not common.
                   </h6>
                 </div>
               </div>
@@ -186,9 +237,11 @@ const HomeComponent = () => {
                 <div className="card-body">
                   <p className="card-title">Travel to endemic region</p>
                   <h6 className="card-text d">
-                    Travelling to destinations with large cases of Covid-19 also poses significant risk
-                    as the chances of coming in close contact with infected people increases with community transmission. 
-                    You may need to assess your risk when making travel plans.
+                    Travelling to destinations with large cases of Covid-19 also
+                    poses significant risk as the chances of coming in close
+                    contact with infected people increases with community
+                    transmission. You may need to assess your risk when making
+                    travel plans.
                   </h6>
                 </div>
               </div>
@@ -205,12 +258,10 @@ const HomeComponent = () => {
                 <p>
                   Coronavirus disease (COVID-19) is a new strain that was
                   discovered in 2019 and has been previously identified in
-                  humans.
-                  People with COVID-19 have had a wide range of symptoms reported – ranging
-                   from mild symptoms to severe illness. Symptoms may appear 2-14 days after 
-                   exposure to the virus. Common signs of infection are majorly respiratory
-                  symptoms.
-                  
+                  humans. People with COVID-19 have had a wide range of symptoms
+                  reported – ranging from mild symptoms to severe illness.
+                  Symptoms may appear 2-14 days after exposure to the virus.
+                  Common signs of infection are majorly respiratory symptoms.
                 </p>
                 <br />
                 <br />
@@ -225,7 +276,7 @@ const HomeComponent = () => {
                 </div>
               </div>
               <div className="col-md-6 d-none d-md-grid symptoms-grid">
-                <div className="img1">
+                <div className="im img1">
                   <img
                     src={sore_throat}
                     width="100%"
@@ -235,7 +286,7 @@ const HomeComponent = () => {
                   />
                   <h6 className="symp">sore throat</h6>
                 </div>
-                <div className="img2">
+                <div className="im img2">
                   <img
                     src={koff}
                     width="100%"
@@ -245,7 +296,7 @@ const HomeComponent = () => {
                   />
                   <h6 className="symp">cough</h6>
                 </div>
-                <div className="img3">
+                <div className="im img3">
                   <img
                     src={fever}
                     width="100%"
@@ -255,7 +306,7 @@ const HomeComponent = () => {
                   />
                   <h6 className="symp">fever</h6>
                 </div>
-                <div className="img4">
+                <div className="im img4">
                   <img
                     src={headache}
                     width="100%"
@@ -265,7 +316,7 @@ const HomeComponent = () => {
                   />
                   <h6 className="symp">headache</h6>
                 </div>
-                <div className="img5">
+                <div className="im img5">
                   <img
                     src={breathing}
                     width="100%"
@@ -293,7 +344,7 @@ const HomeComponent = () => {
             </div>
             <div className="row justify-content-center">
               <div
-                className=" col-md-4 mx-3 shadow-sm"
+                className="im col-md-4 mx-3 shadow-sm"
                 style={{ width: "12rem" }}
               >
                 <img
@@ -306,7 +357,7 @@ const HomeComponent = () => {
                 </div>
               </div>
               <div
-                className=" col-md-4 mx-3 shadow-sm"
+                className="im col-md-4 mx-3 shadow-sm"
                 style={{ width: "12rem" }}
               >
                 <img
@@ -319,7 +370,7 @@ const HomeComponent = () => {
                 </div>
               </div>
               <div
-                className=" col-md-4 mx-3 shadow-sm"
+                className="im col-md-4 mx-3 shadow-sm"
                 style={{ width: "12rem" }}
               >
                 <img
@@ -332,7 +383,7 @@ const HomeComponent = () => {
                 </div>
               </div>
               <div
-                className=" col-md-4 mx-3 shadow-sm"
+                className="im col-md-4 mx-3 shadow-sm"
                 style={{ width: "12rem" }}
               >
                 <img
@@ -372,13 +423,12 @@ const HomeComponent = () => {
                     </p>
                   </details>
                   <details>
-                    <summary>
-                      Stay away from elderly people
-                    </summary>
+                    <summary>Stay away from elderly people</summary>
                     <p>
                       These are vulnerable age groups and are more susceptible
-                      to infection especially covid-19.
-                      Risk for severe illness with COVID-19 increases with age, with older adults at highest risk.
+                      to infection especially covid-19. Risk for severe illness
+                      with COVID-19 increases with age, with older adults at
+                      highest risk.
                     </p>
                   </details>
                   <details>
@@ -391,15 +441,14 @@ const HomeComponent = () => {
                     </p>
                   </details>
                   <details>
-                  <summary>                      
-                      Take everyday preventive actions
-                    </summary>
+                    <summary>Take everyday preventive actions</summary>
                     <p>
-                       Wash your hands frequently.
-                       Avoid touching your eyes, nose, and mouth with unwashed hands.
-                       Cover your cough or sneeze with a tissue, then throw the tissue in the trash.
-                       Stay at least 6 feet (about 2 arm lengths) from other people.
-                       Clean and disinfect frequently touched objects and surfaces.
+                      Wash your hands frequently. Avoid touching your eyes,
+                      nose, and mouth with unwashed hands. Cover your cough or
+                      sneeze with a tissue, then throw the tissue in the trash.
+                      Stay at least 6 feet (about 2 arm lengths) from other
+                      people. Clean and disinfect frequently touched objects and
+                      surfaces.
                     </p>
                   </details>
                 </div>
@@ -423,24 +472,43 @@ const HomeComponent = () => {
               </h2>
               <div className="line2"></div>
               <p className="updated">
-                Updated: {moment(st.updated).format('LL LTS ZZ',true)} 
+                Updated: {moment(st.updated).format("LL LTS ZZ", true)}
                 {/* 27 december 2020, 03:06 GMT +6 */}
               </p>
-              <Link className="btn arrow mb-4"
-                    to="/table"
-                  >View Tables{" "}
-                    <img className="d-none d-md-inline"
-                      src={arrow} width="36" height="36" alt="arrow-right"/>
-                  </Link>
+              <Link className="btn arrow mb-4" to="/table">
+                View Tables{" "}
+                <img
+                  className="d-none d-md-inline"
+                  src={arrow}
+                  width="36"
+                  height="36"
+                  alt="arrow-right"
+                />
+              </Link>
               <br />
             </div>
-            {isLoading && <div className="mt-5 d-flex flex-row justify-content-center"><img className="App-logo" src={logo} alt="logo" height="50" widtg="50" /><h4 className="ms-2 mt-2">Loading...</h4></div>}
+            {isLoading && (
+              <div className="mt-5 d-flex flex-row justify-content-center">
+                <img
+                  className="App-logo"
+                  src={logo}
+                  alt="logo"
+                  height="50"
+                  widtg="50"
+                />
+                <h4 className="ms-2 mt-2">Loading...</h4>
+              </div>
+            )}
             {hasError && (
               <div className="mt-5 d-flex flex-column justify-content-center text-center">
-                <p>Loading error... Are you connected to the internet?<br/>
-                 Check your internet conenction and try again.</p>
-                 <h6 className="text-danger fw-bold">ERROR: {error.message || err.message}</h6>
-
+                <p>
+                  Loading error... Are you connected to the internet?
+                  <br />
+                  Check your internet conenction and try again.
+                </p>
+                <h6 className="text-danger fw-bold">
+                  ERROR: {error.message || err.message}
+                </h6>
               </div>
             )}
 
@@ -532,35 +600,36 @@ const HomeComponent = () => {
                 </div>
               </div>
             )}
-           
-            {success && (<div
-              className="mt-5 d-none d-md-flex flex-row justify-content-center"
-              id="chart"
-              style={{ width: "100%", height: "700px" }}
-              // style={{ display: 'flex', maxWidth: '1000px' }}
-            >
-              <Chart
-                width={'900px'}
-                height={'620px'}
-                chartType="GeoChart"
-                data={dat}
-                options = {{
-                  colorAxis: {colors: ['#FED6D6', '#FF3D39', '#FF0000']},
-                  // animation: {
-                  //   duration: 5000,
-                  //   easing: 'out',
-                  //   startup: true,
-                  // }
-                }}
-                // Note: you will need to get a mapsApiKey for your project.
-                // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-                mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
-                rootProps={{ 'data-testid': '1' }}
-              />
-            </div>)}
+
+            {success && (
+              <div
+                className="mt-5 d-none d-md-flex flex-row justify-content-center"
+                id="chart"
+                style={{ width: "100%", height: "700px" }}
+                // style={{ display: 'flex', maxWidth: '1000px' }}
+              >
+                <Chart
+                  width={"900px"}
+                  height={"620px"}
+                  chartType="GeoChart"
+                  data={dat}
+                  options={{
+                    colorAxis: { colors: ["#FED6D6", "#FF3D39", "#FF0000"] },
+                    // animation: {
+                    //   duration: 5000,
+                    //   easing: 'out',
+                    //   startup: true,
+                    // }
+                  }}
+                  // Note: you will need to get a mapsApiKey for your project.
+                  // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+                  mapsApiKey={process.env.REACT_APP_MAP_API_KEY}
+                  rootProps={{ "data-testid": "1" }}
+                />
+              </div>
+            )}
           </div>
         </section>
-        
       </main>
 
       <footer>
@@ -713,10 +782,14 @@ const HomeContainer = styled.header`
     color: var(--primary);
   }
 
-
   /* transmission */
-  .d{
-    font-size:12px;
+  .card:hover,
+  .im:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+  }
+  .d {
+    font-size: 12px;
   }
   .det {
     margin: 30px auto;
@@ -928,7 +1001,13 @@ const HomeContainer = styled.header`
     color: var(--primary);
   }
   input {
-    min-width: 380px;
+    max-width: 220px;
+    /* background-image: url(img/arrow.svg);
+    background-repeat: no-repeat; */
+  }
+  input:focus {
+    min-width: 320px !important;
+    transition: all 1.5s ease;
   }
   .input-img {
     padding: 0;
@@ -938,7 +1017,10 @@ const HomeContainer = styled.header`
 
 const Home = (props) => {
   return (
-    <DataProvider baseUrl="https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php" routeName="worldstat.php">
+    <DataProvider
+      baseUrl="https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php"
+      routeName="worldstat.php"
+    >
       <HomeComponent {...props}></HomeComponent>
     </DataProvider>
   );

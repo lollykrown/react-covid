@@ -5,10 +5,10 @@ import {logo} from "../img/image";
 
 const Navbar = () => {
     const {hash} = useLocation();
-    
+
   return (
-    <NavbarContainer className="header-bg">
-        <div className="container header">
+    <NavbarContainer className="header-bg" >
+        <div className="container header" >
             <nav className="navbar navbar-expand-md navbar-light py-2">
                 <Link className="navbar-brand" to="/">
                     <img className="img-fluid App-logo" src={logo} alt="logo" width="36px" height="36px" />
@@ -48,6 +48,7 @@ const Navbar = () => {
 
 
 const NavbarContainer = styled.header`
+
 .header .nav-link {
     color: var(--text) !important;
     font-weight: 400;

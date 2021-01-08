@@ -68,7 +68,7 @@ const Table = () => {
               <td className="bord">{co.cases}</td>
               <td className="bord">{co.active_cases}</td>
               <td className="bord">{co.new_cases}</td>
-              <td className={ `bord ${Number(co.deaths?.replace(/,/g, "")) > 0 ? "pink": ""}`}>{co.deaths}</td>
+              <td className={`bord ${Number(co.deaths?.replace(/,/g, "")) > 0 ? "pink": ""}`}>{co.deaths}</td>
               <td className={ `bord ${+co.new_deaths > 0 ? "red": ""}`}>{co.new_deaths}</td>
               <td className="green bord">{co.total_recovered}</td>
               <td className="bord">{co.serious_critical}</td>
